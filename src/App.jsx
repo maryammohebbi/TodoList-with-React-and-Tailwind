@@ -23,13 +23,18 @@ function App() {
     setTodos(prevTodos => prevTodos.map(todo => todo.id == todoId ? {...todo, isStared: !todo.isStared}: todo))
   }
 
+  const handleDelete = (id)=>{
+    // const todoId = Number(e.target.id)
+    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
+  }
+
   return (
     <div>
       <TodoHeader/>
       <section className="max-w-sm mx-auto md:max-w-lg lg:max-w-xl xl:max-w-2xl">
           <AddNewTodo setTodos={setTodos}/>
           <TodoFilter/>  
-          <TodoList todos={todos} onComplete={handleComplete} onStar={handleStar}/>
+          <TodoList todos={todos} onComplete={handleComplete} onStar={handleStar} onDelete={handleDelete}/>
       </section>
     
     </div>
