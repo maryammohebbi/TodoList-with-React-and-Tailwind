@@ -6,14 +6,20 @@ import TodoList from './components/TodoList'
 
 
 function App() {
+  const [todos, setTodos] = useState([])
+  const handleComplete = (e)=>{
+    e.preventDefault();
+    const todoId = Number(e.target.id);
+    setTodos(prevTodos => prevTodos.map(todo => todo.id == todoId ? {...todo, isCompleted: !todo.isCompleted}: todo))
+  }
 
   return (
     <div>
       <TodoHeader/>
       <section className="max-w-sm mx-auto md:max-w-lg lg:max-w-xl xl:max-w-2xl">
-          <AddNewTodo/>
+          <AddNewTodo setTodos={setTodos}/>
           <TodoFilter/>  
-          <TodoList/>
+          <TodoList todos={todos} onComplete={handleComplete}/>
       </section>
     
     </div>
