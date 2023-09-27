@@ -24,9 +24,10 @@ function App() {
   }
 
   const handleDelete = (id)=>{
-    // const todoId = Number(e.target.id)
     setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
   }
+
+ 
 
   return (
     <div>
@@ -36,7 +37,7 @@ function App() {
           <TodoFilter/>  
           <TodoList todos={todos} onComplete={handleComplete} onStar={handleStar} onDelete={handleDelete}/>
       </section>
-    
+      
     </div>
   )
 }
