@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { addTodo } from '../features/todo/todoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAsyncTodo } from '../features/todo/todoSlice';
 
 function AddNewTodo() {
+    const {loading} = useSelector(state => state.todos)
     const [title, setTitle] = useState("")
     const dispath = useDispatch()
 
     const handleSubmit = (e)=>{
         e.preventDefault();
         if(!title) return;
-        dispath(addTodo({title}))
+        dispath(addAsyncTodo({title}))
         setTitle("")
     }
 
   return (
-    <form onSubmit={handleSubmit} autoComplete="off" className="flex items-center p-5 gap-x-2 mb-5">
+    <form onSubmit={handleSubmit} autoComplete="off" className={`flex items-center p-5 gap-x-2 mb-5 ${loading ? "opacity-30" : ""}`}>
        <div className="flex flex-col gap-y-2">
             <button 
             className="bg-indigo-600 p-4 rounded text-indigo-950"

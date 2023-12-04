@@ -1,20 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import EditModal from './EditModal'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteTodo, starTodo, toggleTodo } from '../features/todo/todoSlice'
+import { getAsyncTodos } from '../features/todo/todoSlice'
+import { removeAsyncTodo } from '../features/todo/todoSlice'
+import { toggleAsyncTodo } from '../features/todo/todoSlice'
+import { starAsyncTodo } from '../features/todo/todoSlice'
 
 function TodoList() {
-    const todos = useSelector(state => state.todos)
+    const {todos, loading, error} = useSelector(state => state.todos)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(getAsyncTodos())
+    }, [])
 
   return (
     <div>
         <h1 className="text-indigo-400 text-md font-bold">وظایف امروز من:</h1>
         <div className="p-5">
             {
-                todos.map(todo => (
+                loading ? (<p className='text-white font-bold text-right'>Loading...</p>) : error ? (<p>{error}</p>) :
+                (todos.map(todo => (
                     <TodoItem key={todo.id} {...todo}/>
-                ))
+                )))
             }
         </div>
     </div>
@@ -31,7 +41,7 @@ function TodoItem({id, title, createdAt, isCompleted, isStared}){
                 <div className="flex items-center justify-start gap-x-3 mb-2">
                     <button 
                     id={id}
-                    onClick={()=> dispatch(toggleTodo({id}))}
+                    onClick={()=> dispatch(toggleAsyncTodo({id, isCompleted: !isCompleted}))}
                     >
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 pointer-events-none text-indigo-400">
@@ -46,7 +56,7 @@ function TodoItem({id, title, createdAt, isCompleted, isStared}){
                 <button 
                 id={id}
                 className="text-indigo-500 mb-4 transition-all duration-400 ease-in-out"
-                onClick={()=> dispatch(starTodo({id}))}
+                onClick={()=> dispatch(starAsyncTodo({id, isStared: !isStared}))}
                 >
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
@@ -70,7 +80,7 @@ function TodoItem({id, title, createdAt, isCompleted, isStared}){
 
                 <button 
                 id={id} 
-                onClick={()=> dispatch(deleteTodo({id}))}
+                onClick={()=> dispatch(removeAsyncTodo({id}))}
                 className="delete-btn  flex items-center bg-indigo-700 p-2 rounded-lg hover:bg-red-900 transition-all duration-500 ease-out">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="pointer-events-none w-4 h-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
