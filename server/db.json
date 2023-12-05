@@ -1,3 +1,25 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "id": 1701801481157,
+      "createdAt": "2023-12-05T18:38:01.157Z",
+      "title": "کتاب خواندن",
+      "isCompleted": true,
+      "isStared": false
+    },
+    {
+      "id": 1701801484433,
+      "createdAt": "2023-12-05T18:38:04.433Z",
+      "title": "ورزش کردن",
+      "isCompleted": false,
+      "isStared": false
+    },
+    {
+      "id": 1701801505589,
+      "createdAt": "2023-12-05T18:38:25.589Z",
+      "title": "تمرین زبان آلمانی",
+      "isCompleted": false,
+      "isStared": true
+    }
+  ]
 }
