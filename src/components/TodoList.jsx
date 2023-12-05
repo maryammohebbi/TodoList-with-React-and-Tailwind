@@ -6,8 +6,9 @@ import { getAsyncTodos } from '../features/todo/todoSlice'
 import { removeAsyncTodo } from '../features/todo/todoSlice'
 import { toggleAsyncTodo } from '../features/todo/todoSlice'
 import { starAsyncTodo } from '../features/todo/todoSlice'
+import toast from 'react-hot-toast'
 
-function TodoList() {
+function TodoList({filter}) {
     const {todos, loading, error} = useSelector(state => state.todos)
     const dispatch = useDispatch()
 
@@ -15,13 +16,30 @@ function TodoList() {
         dispatch(getAsyncTodos())
     }, [])
 
+    const filteredTodos =
+        filter === 'all'
+        ? todos
+        : filter === 'completed'
+        ? todos.filter((todo) => todo.isCompleted)
+        : todos.filter((todo) => !todo.isCompleted);
+
+
   return (
     <div>
-        <h1 className="text-indigo-400 text-md font-bold">وظایف امروز من:</h1>
+        <div className='flex justify-between'>          
+            <h1 className="text-indigo-400 text-md font-bold">وظایف امروز من:</h1>
+            <span className="text-indigo-400 text-md font-bold">{todos.filter((todo) => todo.isCompleted).length}/{todos.length}</span>
+        </div>
         <div className="p-5">
             {
-                loading ? (<p className='text-white font-bold text-right'>Loading...</p>) : error ? (<p>{error}</p>) :
-                (todos.map(todo => (
+                (todos.length === 0 ) && 
+                    <p className='text-md text-pink-500 italic'>
+                    هنوز برای امروز وظیفه‌ای ثبت نکردی! :)
+                    </p>
+            }
+            {
+                loading ? (<p className='text-white font-bold text-right'>Loading...</p>) : error ? (toast.error(error)) :
+                (filteredTodos.map(todo => (
                     <TodoItem key={todo.id} {...todo}/>
                 )))
             }

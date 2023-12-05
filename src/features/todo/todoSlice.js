@@ -1,7 +1,6 @@
-
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const api = axios.create({
     baseURL: "http://localhost:5000"
@@ -12,7 +11,9 @@ export const getAsyncTodos = createAsyncThunk("todos/getAsyncTodos", async (_, {
         const {data} = await api.get("/todos")
         return data
     } catch (err) {
-        return rejectWithValue(err.message)        
+        return rejectWithValue(err.message)  
+        // return toast.error(err.message)
+        // return toast.rejectWithValue(err.message)        
     }
 })
 
@@ -47,7 +48,8 @@ export const toggleAsyncTodo = createAsyncThunk("todos/toggleAsyncTodo", async (
         })
         return data
     } catch (err) {
-        return rejectWithValue(err.message)       
+        return rejectWithValue(err.message)   
+          
     }
 })
 
@@ -126,8 +128,6 @@ const todoSlice = createSlice({
           })        
       },
 })
-
-export const {addTodo, toggleTodo, starTodo, deleteTodo} = todoSlice.actions
 
 export default todoSlice.reducer
 

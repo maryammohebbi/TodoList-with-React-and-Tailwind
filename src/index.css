@@ -7,3 +7,8 @@
     width: 2rem;
     height: 2rem;
 }
+
+.active{
+    background-color: rgb(79 70 229);
+    color: #d8c5f9;
+}
