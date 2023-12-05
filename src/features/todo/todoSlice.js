@@ -1,3 +1,5 @@
+
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -59,7 +61,16 @@ export const starAsyncTodo = createAsyncThunk("todos/starAsyncTodo", async (payl
         return rejectWithValue(err.message)       
     }
 })
-
+export const editAsyncTodo = createAsyncThunk("todos/editAsyncTodo", async (payload, {rejectWithValue})=>{
+    try {
+        const {data} = await api.patch(`/todos/${payload.id}`, {
+            title: payload.title
+        })
+        return data
+    } catch (err) {
+        return rejectWithValue(err.message)       
+    }
+})
 
 const todoSlice = createSlice({
     name: "todos",
@@ -108,6 +119,10 @@ const todoSlice = createSlice({
           .addCase(starAsyncTodo.fulfilled, (state, action)=> {
             const selectedTodo = state.todos.find(todo=> todo.id === Number(action.payload.id))
             selectedTodo.isStared = action.payload.isStared
+          })  
+          .addCase(editAsyncTodo.fulfilled, (state, action)=> {
+            const selectedTodo = state.todos.find(todo=> todo.id === Number(action.payload.id))
+            selectedTodo.title = action.payload.title
           })        
       },
 })
@@ -115,4 +130,6 @@ const todoSlice = createSlice({
 export const {addTodo, toggleTodo, starTodo, deleteTodo} = todoSlice.actions
 
 export default todoSlice.reducer
+
+
 

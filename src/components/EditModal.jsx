@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { editAsyncTodo } from '../features/todo/todoSlice';
 
-function EditModal({open, onOpen, id, title, setTodos, setTitle}) {
+function EditModal({open, onOpen, id, title}) {
     if(!open) return null;
-    const handleEditSave = (id) => {
-        setTodos(prevTodos => prevTodos.map(todo => todo.id == id))
-    }
+    const [editedTitle, setEditedTitle] = useState(title)
+    const dispatch = useDispatch()
 
-    const handleEditChange = (e) => {
-        setTitle(e.target.value)
+    const handleEdit = (e)=>{
+        e.preventDefault()
+        dispatch(editAsyncTodo({id, title: editedTitle}))
+        onOpen(false)
     }
 
   return (
-    <div>
-        
+    <div>    
         <div 
         onClick={()=> onOpen(false)}
         className="blur-xl bg-indigo-800 opacity-70 fixed top-0 left-0 w-full h-full z-10">
@@ -21,13 +23,13 @@ function EditModal({open, onOpen, id, title, setTodos, setTitle}) {
         <section 
         className="max-w-sm mx-auto md:max-w-lg lg:max-w-xl xl:max-w-2xl z-20 fixed m-auto left-0 right-0 top-1/3">
             <form
-            onSubmit={()=> handleEditSave(id)} 
+            onSubmit={(e)=> handleEdit(e)} 
             autoComplete="off" 
             className="flex flex-col bg-indigo-950 w-full h-auto p-8 gap-y-14 rounded-xl shadow-xl">
                 <h1 className="text-center text-indigo-500 text-xl font-bold">- ویرایش -</h1>
                 <input
-                value={title}
-                onChange={handleEditChange} 
+                value={editedTitle}
+                onChange={(e)=>setEditedTitle(e.target.value)} 
                 type="text" 
                 className="border border-indigo-500 bg-indigo-900 w-full py-6 px-2 rounded-lg text-sm text-indigo-200"/>
                 <button 
@@ -36,7 +38,6 @@ function EditModal({open, onOpen, id, title, setTodos, setTitle}) {
                 </button>
             </form>
         </section>
-
     </div>
   )
 }

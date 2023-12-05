@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import EditModal from './EditModal'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteTodo, starTodo, toggleTodo } from '../features/todo/todoSlice'
 import { getAsyncTodos } from '../features/todo/todoSlice'
 import { removeAsyncTodo } from '../features/todo/todoSlice'
 import { toggleAsyncTodo } from '../features/todo/todoSlice'
@@ -76,7 +75,7 @@ function TodoItem({id, title, createdAt, isCompleted, isStared}){
                     <span className="text-indigo-300 text-sm">{new Date(createdAt).toLocaleDateString("fa-IR")}</span>
                 </div>
                 |
-                <EditBtn key={id}/>
+                <EditBtn key={id} id={id} title={title}/>
 
                 <button 
                 id={id} 
@@ -108,3 +107,4 @@ function EditBtn({id, title}){
         </div>
     )
 }
+
