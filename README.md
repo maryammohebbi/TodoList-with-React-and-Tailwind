@@ -2,6 +2,8 @@
 
 <div>
     <img src="https://github.com/maryammohebbi/TodoList-with-React-and-Tailwind/blob/master/todo-app-1.png"/>
+    <br/>
     <img src="https://github.com/maryammohebbi/TodoList-with-React-and-Tailwind/blob/master/todo-app-2.png"/>
+    <br/>
     <img src="https://github.com/maryammohebbi/TodoList-with-React-and-Tailwind/blob/master/todo-app-3.png"/>
 </div>
