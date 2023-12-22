@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:5000"
+    baseURL: "https://my-json-server.typicode.com/maryammohebbi/TodoList-with-React-and-Tailwind"
 })
 
 export const getAsyncTodos = createAsyncThunk("todos/getAsyncTodos", async (_, {rejectWithValue})=>{
