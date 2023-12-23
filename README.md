@@ -1,4 +1,4 @@
-<p>A todolist app using react.js, redux toolkit and tailwindcss. And also using json-server package as database</p>
+<p>A todolist app using react.js, redux toolkit and tailwindcss. And also using supabase as database</p>
 
 <div>
     <img src="/todo-app-1.png"/>
