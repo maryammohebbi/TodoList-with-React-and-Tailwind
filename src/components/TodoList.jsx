@@ -20,8 +20,8 @@ function TodoList({filter}) {
         filter === 'all'
         ? todos
         : filter === 'completed'
-        ? todos.filter((todo) => todo.isCompleted)
-        : todos.filter((todo) => !todo.isCompleted);
+        ? todos && todos.filter((todo) => todo.isCompleted)
+        : todos && todos.filter((todo) => !todo.isCompleted);
 
 
   return (
@@ -32,7 +32,7 @@ function TodoList({filter}) {
         </div>
         <div className="p-5">
             {
-                (todos.length === 0 ) && 
+                (!todos || todos.length === 0 ) && 
                     <p className='text-md text-pink-500 italic'>
                     هنوز برای امروز وظیفه‌ای ثبت نکردی! :)
                     </p>
