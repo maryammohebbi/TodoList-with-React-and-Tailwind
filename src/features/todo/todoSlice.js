@@ -44,7 +44,7 @@ export const addAsyncTodo = createAsyncThunk("todos/addAsyncTodo", async (payloa
             },
           )
           .select()
-            console.log("new added:" + data)
+          
           return data[0]
     } catch (err) {
         return rejectWithValue(err.message)       
