@@ -16,13 +16,9 @@ export const getAsyncTodos = createAsyncThunk("todos/getAsyncTodos", async (_, {
           .from("todos")
           .select("*")
 
-        if (error) {
-          return rejectWithValue(error.message);
-        }
-
         return data;
-    } catch (err) {
-        return rejectWithValue(err.message)       
+    } catch (error) {
+        return rejectWithValue(error.message)       
     }
 })
 
@@ -48,13 +44,8 @@ export const addAsyncTodo = createAsyncThunk("todos/addAsyncTodo", async (payloa
             },
           )
           .select()
-          // console.log("Inserted Data:", data);
-          // console.log("Insert Error:", error);
-
-          if (error) {
-            return rejectWithValue(error.message);
-          }
-          return data ? data[0] : null;
+            // console.log("new added:" + data);
+          return data[0]
     } catch (err) {
         return rejectWithValue(err.message)       
     }
@@ -69,9 +60,6 @@ export const removeAsyncTodo = createAsyncThunk("todos/removeAsyncTodo", async (
           .delete()
           .eq("id", payload.id)
 
-        if (error) {
-        return rejectWithValue(error.message);
-        }
         return { id: payload.id };
     } catch (err) {
         return rejectWithValue(err.message)
@@ -90,9 +78,9 @@ export const toggleAsyncTodo = createAsyncThunk("todos/toggleAsyncTodo", async (
           .eq("id", payload.id)
           .select()
           
-        if (error) {
-          throw error;
-        }
+          console.log("payload iscompleted:" + payload.isCompleted)
+          console.log("data:" + data)
+
         return data;
     } catch (err) {
         return rejectWithValue(err.message)   
@@ -112,10 +100,6 @@ export const starAsyncTodo = createAsyncThunk("todos/starAsyncTodo", async (payl
           .eq("id", payload.id)
           .select()
 
-        if (error) {
-          throw error;
-        }
-
         return data;
     } catch (err) {
         return rejectWithValue(err.message)       
@@ -132,10 +116,6 @@ export const editAsyncTodo = createAsyncThunk("todos/editAsyncTodo", async (payl
           .update({ title: payload.title })
           .eq("id", payload.id)
           .select()
-
-        if (error) {
-          throw error;
-        }
 
         return data;
     } catch (err) {

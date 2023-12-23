@@ -20,8 +20,8 @@ function TodoList({filter}) {
         filter === 'all'
         ? todos
         : filter === 'completed'
-        ? todos && todos.filter((todo) => todo.isCompleted)
-        : todos && todos.filter((todo) => !todo.isCompleted);
+        ? todos.filter((todo) => todo.isCompleted)
+        : todos.filter((todo) => !todo.isCompleted);
 
 
   return (
@@ -57,8 +57,8 @@ function TodoItem({id, title, createdAt, isCompleted, isStared}){
             <div className="flex justify-between">               
                 <div className="flex items-center justify-start gap-x-3 mb-2">
                     <button 
-                    id={id}
-                    onClick={()=> dispatch(toggleAsyncTodo({id, isCompleted: !isCompleted}))}
+                        id={id}
+                        onClick={()=> dispatch(toggleAsyncTodo({id, isCompleted: !isCompleted}))}
                     >
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 pointer-events-none text-indigo-400">
@@ -71,9 +71,9 @@ function TodoItem({id, title, createdAt, isCompleted, isStared}){
                 </div>
 
                 <button 
-                id={id}
-                className="text-indigo-500 mb-4 transition-all duration-400 ease-in-out"
-                onClick={()=> dispatch(starAsyncTodo({id, isStared: !isStared}))}
+                    id={id}
+                    className="text-indigo-500 mb-4 transition-all duration-400 ease-in-out"
+                    onClick={()=> dispatch(starAsyncTodo({id, isStared: !isStared}))}
                 >
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
