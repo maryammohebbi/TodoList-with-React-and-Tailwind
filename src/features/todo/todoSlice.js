@@ -44,7 +44,7 @@ export const addAsyncTodo = createAsyncThunk("todos/addAsyncTodo", async (payloa
             },
           )
           .select()
-            // console.log("new added:" + data);
+            console.log("new added:" + data)
           return data[0]
     } catch (err) {
         return rejectWithValue(err.message)       
@@ -77,9 +77,6 @@ export const toggleAsyncTodo = createAsyncThunk("todos/toggleAsyncTodo", async (
           .update({ isCompleted: payload.isCompleted })
           .eq("id", payload.id)
           .select()
-          
-          console.log("payload iscompleted:" + payload.isCompleted)
-          console.log("data:" + data)
 
         return data;
     } catch (err) {
@@ -164,25 +161,16 @@ const todoSlice = createSlice({
             state.error = action.payload
           })
           .addCase(toggleAsyncTodo.fulfilled, (state, action) => {
-            const selectedTodo = state.todos.find(todo => todo.id === Number(action.payload.id))
-            selectedTodo.isCompleted = action.payload.isCompleted
-            // if (selectedTodo) {
-            //   selectedTodo.isCompleted = action.payload.isCompleted;
-            // }
+            const selectedTodo = state.todos.find(todo => todo.id === Number(action.payload[0].id))
+            selectedTodo.isCompleted = action.payload[0].isCompleted
           })
           .addCase(starAsyncTodo.fulfilled, (state, action)=> {
-            const selectedTodo = state.todos.find(todo=> todo.id === Number(action.payload.id))
-            selectedTodo.isStared = action.payload.isStared
-            // if (selectedTodo) {
-            //   selectedTodo.isStared = action.payload.isStared;
-            // }
+            const selectedTodo = state.todos.find(todo=> todo.id === Number(action.payload[0].id))
+            selectedTodo.isStared = action.payload[0].isStared
           })  
           .addCase(editAsyncTodo.fulfilled, (state, action)=> {
-            const selectedTodo = state.todos.find(todo=> todo.id === Number(action.payload.id))
-            selectedTodo.title = action.payload.title
-            // if (selectedTodo) {
-            //   selectedTodo.title = action.payload.title;
-            // }
+            const selectedTodo = state.todos.find(todo=> todo.id === Number(action.payload[0].id))
+            selectedTodo.title = action.payload[0].title
           })        
       },
 })
